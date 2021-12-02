@@ -50,6 +50,8 @@
                                     @if(Gate::check('Edit Promotion') || Gate::check('Delete Promotion'))
                                         <td>
                                             @can('Edit Promotion')
+                                                <a href="#" class="edit-icon bg-success" data-toggle="tooltip" data-original-title="{{__('Approve')}}" data-confirm="{{__('Are You Sure?').'|'.__('This action can not be undone. Do you want to continue?')}}" data-confirm-yes="document.getElementById('delete-form-{{$promotion->id}}').submit();"><i class="fas fa-check"></i></a>
+                                               
                                                 <a href="#" data-url="{{ URL::to('promotion/'.$promotion->id.'/edit') }}" data-size="lg" data-ajax-popup="true" data-title="{{__('Edit Promotion')}}" class="edit-icon" data-toggle="tooltip" data-original-title="{{__('Edit')}}"><i class="fas fa-pencil-alt"></i></a>
                                             @endcan
                                             @can('Delete Promotion')

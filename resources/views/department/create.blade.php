@@ -1,12 +1,7 @@
 <div class="card bg-none card-box">
     {{Form::open(array('url'=>'department','method'=>'post'))}}
     <div class="row ">
-        <div class="col-12">
-            <div class="form-group">
-                {{Form::label('branch_id',__('Branch'),['class'=>'form-control-label'])}}
-                {{Form::select('branch_id',$branch,null,array('class'=>'form-control select2','placeholder'=>__('Select Branch')))}}
-            </div>
-        </div>
+       
         <div class="col-12">
             <div class="form-group">
                 {{Form::label('name',__('Name'),['class'=>'form-control-label'])}}

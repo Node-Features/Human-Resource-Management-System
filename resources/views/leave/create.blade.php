@@ -10,14 +10,39 @@
             </div>
         </div>
     @endif
+            
+
+@php
+$dayscarried=($totaldaysbefore[0]->DAY)-($daysusedbefore[0]->DAY); 
+
+@endphp
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 {{Form::label('leave_type_id',__('Leave Type'))}}
-                <select name="leave_type_id" id="leave_type_id" class="form-control select2">
-                    @foreach($leavetypes as $leave)
-                        <option value="{{ $leave->id }}">{{ $leave->title }} (<p class="float-right pr-5">{{ $leave->days }}</p>)</option>
-                    @endforeach
+                <select name="type_id" id="leave_type_id" class="form-control select2">
+                        @foreach($leavetypes as $leave)
+                        @php
+                            if($leave->type_id == 1){
+                                    $daysallowed=$leave->days+$dayscarried;
+                            }else{
+                                $year=date('Y');
+                                $daysused=\App\Leave::select(\DB::raw('round(SUM(total_leave_days),0) as DAY'))->where('yearOf','=',$year)
+                                ->where('employee_id',$employees[0]->id)
+                                ->where('status','Completed')
+                                ->where('leave_id',$leave->id)
+                                ->get();
+                                $daysallowed=($leave->days)-($daysused[0]->DAY); 
+                                
+                            }
+                            
+                        @endphp
+                      
+                        <option value="{{ $leave->type_id }}|{{$daysallowed}}|{{ $leave->id }}">{{ $leave->title }} (<p class="float-right pr-5">{{$daysallowed}}</p>)</option>
+                        
+                        @endforeach
                 </select>
             </div>
         </div>

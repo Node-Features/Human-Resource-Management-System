@@ -88,50 +88,64 @@
                     @endif
                 @endif
 
-                @if(Gate::check('Manage Set Salary') || Gate::check('Manage Pay Slip'))
+               
+
+            @if(('Manage Payroll') && ('Create Payroll') && ('Manage Payroll'))
+
+            <li class="nav-item">
+                            <a class="nav-link " href="#navbar-payroll" data-toggle="collapse" role="button" aria-expanded=""
+                              aria-controls="#navbar-staff">
+                                <i class="fas fa-receipt"></i>{{ __('Payroll') }}
+                                <i class="fas fa-sort-up"></i>
+                            </a>
+                            <div class="collapse" id="navbar-payroll">
+                                <ul class="nav flex-column submenu-ul">
+                                  
+                @if(('Manage Payroll') )
                     <li class="nav-item">
-                        <a class="nav-link {{ (Request::route()->getName() == 'setsalary.index' || Request::route()->getName() == 'setsalary.show' ||  Request::route()->getName() == 'payslip.index' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'setsalary.edit' || Request::route()->getName() == 'employeesalary' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'payslip.pdf') ? 'active' : 'collapsed' }}"
-                           href="#navbar-payroll" data-toggle="collapse" role="button" aria-expanded="{{ (Request::route()->getName() == 'setsalary.index' || Request::route()->getName() == 'setsalary.show' ||  Request::route()->getName() == 'payslip.index' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'setsalary.edit' || Request::route()->getName() == 'employeesalary' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route
-                           ()->getName() == 'payslip.pdf') ? 'true' : 'false' }}" aria-controls="navbar-payroll">
-                            <i class="fas fa-receipt"></i>{{ __('Payroll') }}
-                            <i class="fas fa-sort-up"></i>
-                        </a>
-                        <div class="collapse {{ (Request::route()->getName() == 'setsalary.index' || Request::route()->getName() == 'setsalary.show' ||  Request::route()->getName() == 'payslip.index' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'setsalary.edit' || Request::route()->getName() == 'employeesalary' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'payslip.pdf') ? 'show' : '' }}"
-                             id="navbar-payroll">
+                      
+                        
                             <ul class="nav flex-column submenu-ul">
-                                <li class="nav-item {{ request()->is('setsalary*') ? 'active' : '' }}">
-                                    <a href="{{ route('setsalary.index') }}" class="nav-link">{{ __('Set Salary') }}</a>
-                                </li>
-                                <li class="nav-item {{ request()->is('payslip*') ? 'active' : '' }}">
-                                    <a href="{{ route('payslip.index') }}" class="nav-link">{{ __('Payslip') }}</a>
+                                
+                                <li class="nav-item">
+                                    <a href="{{ route('payroll.yearm') }}" class="nav-link">{{ __('Manage Payroll') }}</a>
                                 </li>
                             </ul>
-                        </div>
+                      
                     </li>
                 @endif
-                @if(\Auth::user()->type=='employee')
+                
+                @if(('Create Payroll') )
                     <li class="nav-item">
-                        <a class="nav-link {{ (Request::route()->getName() == 'setsalary.index' || Request::route()->getName() == 'setsalary.show' ||  Request::route()->getName() == 'payslip.index' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'setsalary.edit' || Request::route()->getName() == 'employeesalary' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'payslip.pdf') ? 'active' : 'collapsed' }}"
-                           href="#navbar-payroll" data-toggle="collapse" role="button" aria-expanded="{{ (Request::route()->getName() == 'setsalary.index' || Request::route()->getName() == 'setsalary.show' ||  Request::route()->getName() == 'payslip.index' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'setsalary.edit' || Request::route()->getName() == 'employeesalary' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route
-                           ()->getName() == 'payslip.pdf') ? 'true' : 'false' }}" aria-controls="navbar-payroll">
-                            <i class="fas fa-receipt"></i>{{ __('Payroll') }}
-                            <i class="fas fa-sort-up"></i>
-                        </a>
-                        <div class="collapse {{ (Request::route()->getName() == 'setsalary.index' || Request::route()->getName() == 'setsalary.show' ||  Request::route()->getName() == 'payslip.index' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'setsalary.edit' || Request::route()->getName() == 'employeesalary' || Request::route()->getName() == 'payslip.employeepayslip' || Request::route()->getName() == 'payslip.pdf') ? 'show' : '' }}"
-                             id="navbar-payroll">
+                      
+                        
                             <ul class="nav flex-column submenu-ul">
-
-                                <li class="nav-item {{ request()->is('setsalary*') ? 'active' : '' }}">
-                                    <a href="{{ route('setsalary.show',\Auth::user()->id) }}" class="nav-link">{{ __('Set Salary') }}</a>
+                                
+                                <li class="nav-item">
+                                    <a href="{{ route('payroll.yearc') }}" class="nav-link">{{ __('Create Payroll') }}</a>
                                 </li>
-                                <li class="nav-item {{ request()->is('payslip*') ? 'active' : '' }}">
-                                    <a href="{{ route('payslip.index') }}" class="nav-link">{{ __('Payslip') }}</a>
-                                </li>
-
                             </ul>
-                        </div>
+                      
                     </li>
                 @endif
+                @if(('Edit Payroll') )
+                    <li class="nav-item">
+                      
+                        
+                            <ul class="nav flex-column submenu-ul">
+                                
+                                <li class="nav-item">
+                                    <a href="{{ route('payroll.yeare') }}" class="nav-link">{{ __('Edit Payroll') }}</a>
+                                </li>
+                            </ul>
+                      
+                    </li>
+                @endif
+                            </ul>
+                            </div>
+                            </li>
+              @endif  
+             
                 @if( Gate::check('Manage Attendance') || Gate::check('Manage Leave') || Gate::check('Manage TimeSheet'))
                     <li class="nav-item">
                         <a class="nav-link {{ (Request::route()->getName() == 'attendanceemployee.index' || Request::route()->getName() == 'leave.index'  || Request::route()->getName() == 'timesheet.index' || Request::route()->getName() == 'attendanceemployee.bulkattendance') ? 'active' : 'collapsed' }}"
@@ -176,7 +190,7 @@
                                     </li>
                                 @endcan
                 @endif
-
+<!-- 
                 @if(Gate::check('Manage Indicator') || Gate::check('Manage Appraisal') || Gate::check('Manage Goal Tracking'))
                     <li class="nav-item">
                         <a class="nav-link {{ (Request::route()->getName() == 'indicator.index' || Request::route()->getName() == 'appraisal.index' || Request::route()->getName() == 'goaltracking.index') ? 'active' : 'collapsed' }}" href="#navbar-performance" data-toggle="collapse" role="button" aria-expanded="{{ (Request::route()->getName() == 'indicator.index' || Request::route()->getName() == 'appraisal.index' || Request::route()->getName() == 'goaltracking.index') ? 'true' : 'false' }}"
@@ -205,7 +219,7 @@
                         </div>
                     </li>
                 @endif
-
+                           -->
                 @if(Gate::check('Manage Account List') || Gate::check('Manage Payee')  || Gate::check('Manage Payer')  || Gate::check('Manage Deposit') || Gate::check('Manage Expense') || Gate::check('Manage Transfer Balance'))
                     <li class="nav-item">
                         <a class="nav-link {{ (Request::route()->getName() == 'accountlist.index' || Request::route()->getName() == 'accountbalance' || Request::route()->getName() == 'payees.index' || Request::route()->getName() == 'payer.index' || Request::route()->getName() == 'deposit.index' || Request::route()->getName() == 'expense.index' || Request::route()->getName() == 'transferbalance.index' || Request::route()->getName() == 'viewtransaction.index') ? 'active' : 'collapsed' }}"
@@ -412,13 +426,14 @@
                     </li>
                 @endif
              
-                @can('Manage Ticket')
+              <!--  @can('Manage Ticket')
                     <li class="nav-item">
                         <a href="{{ route('ticket.index') }}" class="nav-link {{ request()->is('ticket*') ? 'active' : '' }}">
                             <i class="fas fa-ticket-alt"></i>{{ __('Ticket') }}
                         </a>
                     </li>
                 @endcan
+                -->
                 @can('Manage Event')
                     <li class="nav-item">
                         <a href="{{ route('event.index') }}" class="nav-link {{ request()->is('event*') ? 'active' : '' }}">

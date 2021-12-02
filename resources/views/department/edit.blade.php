@@ -1,12 +1,7 @@
 <div class="card bg-none card-box">
     {{Form::model($department,array('route' => array('department.update', $department->id), 'method' => 'PUT')) }}
     <div class="row ">
-        <div class="col-12">
-            <div class="form-group">
-                {{Form::label('branch_id',__('Branch'))}}
-                {{Form::select('branch_id',$branch,null,array('class'=>'form-control select2 ','placeholder'=>__('select Branch')))}}
-            </div>
-        </div>
+       
         <div class="col-12">
             <div class="form-group">
                 {{Form::label('name',__('Name'))}}

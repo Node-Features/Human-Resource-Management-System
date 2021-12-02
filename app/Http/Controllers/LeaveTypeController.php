@@ -44,6 +44,8 @@ class LeaveTypeController extends Controller
                 $request->all(), [
                 'title' => 'required',
                 'days' => 'required',
+                'year'=>'required',
+                'type_id'=>'required',
             ]
             );
 
@@ -57,6 +59,8 @@ class LeaveTypeController extends Controller
             $leavetype             = new LeaveType();
             $leavetype->title      = $request->title;
             $leavetype->days       = $request->days;
+            $leavetype->yearOf      = $request->year;
+            $leavetype->type_id       = $request->type_id;
             $leavetype->created_by = \Auth::user()->creatorId();
             $leavetype->save();
 

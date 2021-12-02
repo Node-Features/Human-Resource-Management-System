@@ -28,6 +28,9 @@
                                 @role('company')
                                 <th>{{__('Employee Name')}}</th>
                                 @endrole
+                                @role('hr')
+                                <th>{{__('Employee Name')}}</th>
+                                @endrole
                                 <th>{{__('Notice Date')}}</th>
                                 <th>{{__('Resignation Date')}}</th>
                                 <th>{{__('Description')}}</th>
@@ -40,6 +43,9 @@
                             @foreach ($resignations as $resignation)
                                 <tr>
                                     @role('company')
+                                    <td>{{ !empty($resignation->employee())?$resignation->employee()->name:'' }}</td>
+                                    @endrole
+                                    @role('hr')
                                     <td>{{ !empty($resignation->employee())?$resignation->employee()->name:'' }}</td>
                                     @endrole
                                     <td>{{  \Auth::user()->dateFormat($resignation->notice_date) }}</td>

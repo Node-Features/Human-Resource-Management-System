@@ -44,27 +44,25 @@
                                     @if(\Auth::user()->type!='employee')
                                         <td>{{ !empty(\Auth::user()->getEmployee($leave->employee_id))?\Auth::user()->getEmployee($leave->employee_id)->name:'' }}</td>
                                     @endif
-                                    <td>{{ !empty(\Auth::user()->getLeaveType($leave->leave_type_id))?\Auth::user()->getLeaveType($leave->leave_type_id)->title:'' }}</td>
+                                    <td>{{ !empty(\Auth::user()->getLeaveType($leave->leave_id))?\Auth::user()->getLeaveType($leave->leave_id)->title:'' }}</td>
                                     <td>{{ \Auth::user()->dateFormat($leave->applied_on )}}</td>
                                     <td>{{ \Auth::user()->dateFormat($leave->start_date ) }}</td>
                                     <td>{{ \Auth::user()->dateFormat($leave->end_date )  }}</td>
-                                    @php
-                                        $startDate = new \DateTime($leave->start_date);
-                                        $endDate   = new \DateTime($leave->end_date);
-                                        $total_leave_days = !empty($startDate->diff($endDate))?$startDate->diff($endDate)->days:0;
-                                    @endphp
-                                    <td>{{ $total_leave_days }}</td>
+                                    <td>{{ $leave->total_leave_days }}</td>
                                     <td>{{ $leave->leave_reason }}</td>
                                     <td>
                                         @if($leave->status=="Pending")
                                             <div class="badge badge-pill badge-warning">{{ $leave->status }}</div>
                                         @elseif($leave->status=="Approve")
-                                            <div class="badge badge-pill badge-success">{{ $leave->status }}</div>
+                                            <div class=" badge-pill badge-success">{{ $leave->status }}</div>
+                                        @elseif($leave->status=="Completed")
+                                            <div class="badge badge-pill badge-primary">{{ $leave->status }}</div>
                                         @else($leave->status=="Reject")
                                             <div class="badge badge-pill badge-danger">{{ $leave->status }}</div>
                                         @endif
                                     </td>
                                     <td>
+                                        @if($leave->status=="Pending")
                                         @if(\Auth::user()->type == 'employee')
                                             @if($leave->status == "Pending")
                                                 @can('Edit Leave')
@@ -82,6 +80,21 @@
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['leave.destroy', $leave->id],'id'=>'delete-form-'.$leave->id]) !!}
                                             {!! Form::close() !!}
                                         @endif
+                                            @elseif($leave->status=="Approve")
+                                            @can('Edit Leave')
+                                            <form action="leave/complete/{{$leave->id}}" method="POST">
+                                                @csrf
+                                                    <button type="submit" class="edit-icon bg-success" data-toggle="tooltip" data-original-title="{{__('Complete')}}"><i class="fas fa-check"></i></button>
+                                            </form> 
+                                                <a href="#" data-url="{{ URL::to('leave/'.$leave->id.'/edit') }}" data-size="lg" data-ajax-popup="true" data-title="{{__('Edit Leave')}}" class="edit-icon" data-toggle="tooltip" data-original-title="{{__('Edit')}}"><i class="fas fa-pencil-alt"></i></a>
+                                                
+                                            @endcan
+                                            @elseif($leave->status=="Completed")
+                                                
+                                            @else($leave->status=="Reject")
+                                                
+                                            @endif
+                                      
                                     </td>
                                 </tr>
                             @endforeach

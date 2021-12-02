@@ -10,5 +10,7 @@ class LeaveType extends Model
         'title',
         'days',
         'created_by',
+        'yearOf',
+        'type_id',
     ];
 }

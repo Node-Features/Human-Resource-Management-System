@@ -11,7 +11,5 @@ class Department extends Model
         'created_by',
     ];
 
-    public function branch(){
-        return $this->hasOne('App\Branch','id','branch_id');
-    }
+   
 }

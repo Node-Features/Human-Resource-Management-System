@@ -12,6 +12,25 @@
                 @enderror
             </div>
         </div>
+        {{Form::label('type',__('Leave Type'))}}
+                <select name="type_id" id="leave_type_id" class="form-control select2">
+                   
+                <option value="1">Carrying allowed </option>   
+                <option value="0">Carrying not allowed</option>    
+                
+                       
+                </select>
+        <div class="col-md-12">
+            <div class="form-group">
+                {{Form::label('year',__('Year'),['class'=>'form-control-label'])}}
+                {{Form::text('year',null,array('class'=>'form-control','placeholder'=>__('Year')))}}
+                @error('year')
+                <span class="invalid-name" role="alert">
+                    <strong class="text-danger">{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="form-group">
                 {{Form::label('days',__('Days Per Year'),['class'=>'form-control-label'])}}

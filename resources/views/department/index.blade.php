@@ -25,7 +25,7 @@
                         <table class="table table-striped mb-0 dataTable" >
                             <thead>
                             <tr>
-                                <th>{{__('Branch')}}</th>
+                                
                                 <th>{{__('Department')}}</th>
                                 <th width="200px">{{__('Action')}}</th>
                             </tr>
@@ -33,7 +33,7 @@
                             <tbody class="font-style">
                             @foreach ($departments as $department)
                                 <tr>
-                                    <td>{{ !empty($department->branch)?$department->branch->name:'' }}</td>
+                               
                                     <td>{{ $department->name }}</td>
 
                                     <td class="Action">

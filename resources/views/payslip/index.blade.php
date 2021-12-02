@@ -58,7 +58,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped mb-0" id="dataTable1">
+                        <table class="table table-striped mb-0 dataTable js-exportable">
                             <thead>
                             <tr>
                                 <th>{{__('Id')}}</th>

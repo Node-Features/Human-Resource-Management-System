@@ -7,6 +7,7 @@ use App\Leave;
 use App\LeaveType;
 use App\Mail\LeaveActionSend;
 use App\Utility;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -44,17 +45,32 @@ class LeaveController extends Controller
         {
             if(Auth::user()->type == 'employee')
             {
-                $employees = Employee::where('user_id', '=', \Auth::user()->id)->get()->pluck('name', 'id');
+                $employees = Employee::select('id','name')->where('user_id', '=', \Auth::user()->id)->get();
+               
+                $year=date('Y');
+                $daysusedbefore=Leave::select(\DB::raw('round(SUM(total_leave_days),0) as DAY'))->where('yearOf','<=',$year)
+                ->where('employee_id',$employees[0]->id)
+                ->where('status','Completed')
+                ->where('leave_type_id',1)
+                ->get();
+                $totaldaysbefore=LeaveType::select(\DB::raw('round(SUM(days),0) as DAY'))->where('yearOf','<',$year)
+                ->where('type_id',1)
+                ->get();
+                
+              
+        
             }
             else
             {
                 $employees = Employee::where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('name', 'id');
             }
-            $leavetypes      = LeaveType::where('created_by', '=', \Auth::user()->creatorId())->get();
+            
+           
+            $leavetypes      = LeaveType::where('created_by', '=', \Auth::user()->creatorId())->where('yearOf',$year)->get();
             $leavetypes_days = LeaveType::where('created_by', '=', \Auth::user()->creatorId())->get();
 
 //            dd(Employee::employeeTotalLeave(1));
-            return view('leave.create', compact('employees', 'leavetypes', 'leavetypes_days'));
+            return view('leave.create', compact('employees', 'leavetypes', 'leavetypes_days','daysusedbefore','totaldaysbefore'));
         }
         else
         {
@@ -69,7 +85,8 @@ class LeaveController extends Controller
         {
             $validator = \Validator::make(
                 $request->all(), [
-                                   'leave_type_id' => 'required',
+                                    
+                                   'type_id' => 'required',
                                    'start_date' => 'required',
                                    'end_date' => 'required',
                                    'leave_reason' => 'required',
@@ -83,6 +100,17 @@ class LeaveController extends Controller
                 return redirect()->back()->with('error', $messages->first());
             }
 
+                $result = $request->type_id;
+                $result_explode = explode('|', $result);
+                $typeid= $result_explode[0];
+                $leave_type_days= $result_explode[1];
+                $leave_id=$result_explode[2];
+               
+
+               
+                
+
+
 
             $employee = Employee::where('user_id', '=', Auth::user()->id)->first();
             $leave    = new Leave();
@@ -94,20 +122,62 @@ class LeaveController extends Controller
             {
                 $leave->employee_id = $request->employee_id;
             }
-            $leave->leave_type_id    = $request->leave_type_id;
-            $leave->applied_on       = date('Y-m-d');
-            $leave->start_date       = $request->start_date;
-            $leave->end_date         = $request->end_date;
-            $leave->total_leave_days = 0;
-            $leave->leave_reason     = $request->leave_reason;
-            $leave->remark           = $request->remark;
-            $leave->status           = 'Pending';
-            $leave->created_by       = \Auth::user()->creatorId();
 
-            $leave->save();
 
-            return redirect()->route('leave.index')->with('success', __('Leave  successfully created.'));
-        }
+
+            $year=date('Y');
+            $holiday=[$year.'-09-15',$year.'-09-16',$year.'-09-17'];
+            $startDate               = new \DateTime($request->start_date);
+            $endDate                 = new \DateTime($request->end_date);
+
+            $total_leave_days = $startDate->diff($endDate)->days;
+            
+            $temp=0;
+            $start=date_format($startDate,'Y-m-d');
+            $end=date_format($endDate,'Y-m-d');
+
+           
+           
+             for($ctr=0;$ctr<count($holiday);$ctr++)
+             {
+                 if($holiday[$ctr]>=$start && $holiday[$ctr]<=$end){
+                     $temp++;
+                }
+               
+            } 
+            
+            $total_leave_days = $total_leave_days - $temp;
+
+
+            
+           
+           
+            
+
+            if( $total_leave_days >= $leave_type_days){
+                return redirect()->back()->with('error', __('Leaves applied exceeds the required amount.'));
+            }else{
+
+                    
+                $leave->leave_type_id    = $typeid;
+                $leave->applied_on       = date('Y-m-d');
+                $leave->start_date       = $request->start_date;
+                $leave->end_date         = $request->end_date;
+                $leave->total_leave_days = $total_leave_days;
+                $leave->leave_reason     = $request->leave_reason;
+                $leave->remark           = $request->remark;
+                $leave->status           = 'Pending';
+                $leave->yearOf           = $year;
+                $leave->leave_id           = $leave_id;
+                $leave->created_by       = \Auth::user()->creatorId();
+    
+                $leave->save();
+    
+                return redirect()->route('leave.index')->with('success', __('Leave  successfully created.'));
+                    
+            }
+
+     }
         else
         {
             return redirect()->back()->with('error', __('Permission denied.'));
@@ -165,6 +235,8 @@ class LeaveController extends Controller
                     return redirect()->back()->with('error', $messages->first());
                 }
 
+                
+
                 $leave->employee_id      = $request->employee_id;
                 $leave->leave_type_id    = $request->leave_type_id;
                 $leave->start_date       = $request->start_date;
@@ -202,6 +274,21 @@ class LeaveController extends Controller
             {
                 return redirect()->back()->with('error', __('Permission denied.'));
             }
+        }
+        else
+        {
+            return redirect()->back()->with('error', __('Permission denied.'));
+        }
+    }
+
+    public function complete(Request $request,$id)
+    {
+        if(\Auth::user()->can('Edit Leave'))
+        {
+           
+                $update=DB::table('leaves')->where('id', $id) ->limit(1) ->update( [  'status' => 'Completed' ]); 
+                return redirect()->route('leave.index')->with('success', __('Leave Completed'));
+           
         }
         else
         {

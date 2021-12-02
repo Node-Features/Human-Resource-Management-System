@@ -27,6 +27,7 @@
                             <tr>
                                 <th>{{__('Leave Type')}}</th>
                                 <th>{{__('Days / Year')}}</th>
+                                <th>{{__('Year')}}</th>
                                 <th width="200px">{{__('Action')}}</th>
                             </tr>
                             </thead>
@@ -35,6 +36,7 @@
                                 <tr>
                                     <td>{{ $leavetype->title }}</td>
                                     <td>{{ $leavetype->days}}</td>
+                                    <td>{{ $leavetype->yearOf}}</td>
 
                                     <td>
                                         @can('Edit Leave Type')

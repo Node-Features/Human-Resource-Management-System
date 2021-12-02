@@ -150,6 +150,12 @@ Route::resource('branch', 'BranchController')->middleware(
         'XSS',
     ]
 );
+Route::resource('band', 'BandController')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
 Route::resource('awardtype', 'AwardTypeController')->middleware(
     [
         'auth',
@@ -380,6 +386,63 @@ Route::resource('setsalary', 'SetSalaryController')->middleware(
     ]
 );
 
+Route::get('payroll/create/{year}/{month}', 'PayrollController@createsalary')->name('payroll.create')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::get('payroll/manage/{year}/{month}', 'PayrollController@managesalary')->name('payroll.manage')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+
+Route::get('payroll/edit/{year}/{month}', 'PayrollController@editsalary')->name('payroll.edit')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::get('payroll/yearm', 'PayrollController@yearm')->name('payroll.yearm')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::get('payroll/monthm/{year}', 'PayrollController@monthm')->name('payroll.monthm')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::get('payroll/yearc', 'PayrollController@yearc')->name('payroll.yearc')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::get('payroll/monthc/{year}', 'PayrollController@monthc')->name('payroll.monthc')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::get('payroll/yeare', 'PayrollController@yearc')->name('payroll.yeare')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::get('payroll/monthe/{year}', 'PayrollController@monthc')->name('payroll.monthe')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+
+
 Route::get('payslip/paysalary/{id}/{date}', 'PaySlipController@paysalary')->name('payslip.paysalary')->middleware(
     [
         'auth',
@@ -521,6 +584,12 @@ Route::get('accountbalance', 'AccountListController@account_balance')->name('acc
 
 
 Route::get('leave/{id}/action', 'LeaveController@action')->name('leave.action')->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::post('leave/complete/{id}', 'LeaveController@complete')->name('leave.complete')->middleware(
     [
         'auth',
         'XSS',
@@ -675,7 +744,7 @@ Route::resource('roles', 'RoleController')->middleware(
         'auth',
         'XSS',
     ]
-);
+); 
 Route::resource('permissions', 'PermissionController')->middleware(
     [
         'auth',
