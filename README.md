@@ -1,66 +1,394 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Human Resource Management System (HRMS)
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+  <strong>A web-based human resource management platform for managing employees, attendance, payroll-related records, performance, policies, and day-to-day HR operations.</strong>
 </p>
 
-## About Laravel
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-7-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" />
+  <img src="https://img.shields.io/badge/PHP-7%2B-777BB4?style=for-the-badge&logo=php&logoColor=white" />
+  <img src="https://img.shields.io/badge/Category-HRMS-0A66C2?style=for-the-badge" />
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**HRMS** is a web-based Human Resource Management System designed to centralize common employee and administrative workflows.
 
-## Learning Laravel
+The platform brings multiple HR functions into one system, helping organizations manage employee information, attendance, compensation-related records, performance, internal policies, and administrative processes more consistently.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The project demonstrates the design of a relatively broad business application with many connected HR domains rather than a single-purpose CRUD application.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+# The Problem
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Human-resource operations can become difficult to manage when employee information is distributed across spreadsheets, paper records, email, and disconnected systems.
 
-### Premium Partners
+Common problems include:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+* Scattered employee records
+* Manual attendance tracking
+* Difficulty maintaining allowances and commissions
+* Limited visibility into performance reviews
+* Poor organization of internal policies
+* Disconnected complaint and grievance processes
+* Repetitive administrative work
+* Difficulty enforcing user permissions
 
-## Contributing
+The HRMS project centralizes these workflows into one application.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+# Core Capabilities
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 👥 Employee Management
 
-## Security Vulnerabilities
+The platform provides a structured foundation for maintaining employee-related information and connecting employees to other HR workflows.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Employee data can be associated with operational areas such as:
 
-## License
+* Branches
+* Attendance
+* Payroll-related records
+* Performance
+* Awards
+* Policies
+* Complaints
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# HRMS
-# HRMS
-# HRMS
-# HRMS
-# HRMS
+---
+
+## 🕒 Attendance Management
+
+The application contains dedicated attendance models for tracking employee attendance records.
+
+This helps organizations maintain a consistent history of employee attendance rather than relying entirely on manual records.
+
+---
+
+## 💰 Compensation & Benefits
+
+The application includes several compensation-related domains, including:
+
+* Allowances
+* Allowance options
+* Commissions
+* Account-related records
+
+These modules provide a foundation for organizing different components of employee compensation and financial administration.
+
+---
+
+## 📈 Performance Management
+
+The platform includes appraisal functionality for employee performance management.
+
+Performance records can be used to document and review employee performance over time.
+
+---
+
+## 🏆 Awards & Recognition
+
+The system contains functionality for:
+
+* Awards
+* Award types
+
+This provides a structured way to record employee recognition.
+
+---
+
+## 🏢 Organizational Structure
+
+HR information can be organized using company structures such as:
+
+* Branches
+* Organizational units
+* Employee relationships
+
+This allows the system to reflect how employees are distributed within an organization.
+
+---
+
+## 📜 Company Policies
+
+The platform includes company-policy functionality for maintaining internal organizational policies.
+
+This gives HR teams a centralized way to manage and communicate important institutional rules and guidance.
+
+---
+
+## 🗣️ Complaints & Employee Relations
+
+The HRMS contains complaint-management functionality for recording and managing employee-related concerns.
+
+This helps formalize issues that would otherwise be handled only through informal communication.
+
+---
+
+## 📢 Announcements
+
+The system includes announcement-related models, allowing organizations to distribute internal information to employees.
+
+---
+
+## 🔐 Roles & Permissions
+
+The project uses role and permission infrastructure to control access to different areas of the system.
+
+This is important in HR systems because sensitive employee and administrative data should only be accessible to authorized users.
+
+---
+
+# Technology Stack
+
+## Backend
+
+* PHP
+* Laravel 7
+* Laravel UI
+* Eloquent ORM
+
+## Authorization
+
+* Spatie Laravel Permission
+
+## Database
+
+* Laravel migrations
+* Relational database architecture
+
+## Frontend
+
+* Blade templates
+* JavaScript
+* Laravel frontend tooling
+
+## Testing
+
+* PHPUnit
+* Mockery
+
+## Development
+
+* Composer
+* npm
+* Laravel Artisan
+
+---
+
+# Application Architecture
+
+At a high level:
+
+```text
+Users
+  │
+  ▼
+HRMS Web Application
+  │
+  ├── Authentication
+  ├── Employee Management
+  ├── Attendance
+  ├── Compensation
+  ├── Appraisals
+  ├── Awards
+  ├── Company Policies
+  ├── Complaints
+  ├── Announcements
+  └── Administration
+        │
+        ▼
+Laravel Application Layer
+        │
+        ├── Controllers
+        ├── Models
+        ├── Services / Business Logic
+        ├── Authorization
+        └── Database
+```
+
+---
+
+# Domain Model
+
+The project contains business models including:
+
+```text
+AccountList
+Allowance
+AllowanceOption
+Announcement
+AnnouncementEmployee
+Appraisal
+Asset
+AttendanceEmployee
+Award
+AwardType
+Band
+Branch
+Commission
+CompanyPolicy
+Complaint
+...
+```
+
+This reflects a multi-domain HR application rather than a small demonstration project.
+
+---
+
+# Project Structure
+
+A simplified repository structure:
+
+```text
+HRMS/
+│
+├── app/
+│   ├── Models
+│   ├── Http/
+│   ├── Console/
+│   └── ...
+│
+├── bootstrap/
+├── config/
+├── database/
+├── public/
+├── resources/
+├── routes/
+├── storage/
+├── tests/
+│
+├── artisan
+├── composer.json
+├── package.json
+└── README.md
+```
+
+---
+
+# Running Locally
+
+## Requirements
+
+You will typically need:
+
+```text
+PHP 7.2.5+
+Composer
+Node.js / npm
+A supported relational database
+```
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Node-Features/HRMS.git
+cd HRMS
+```
+
+Install PHP dependencies:
+
+```bash
+composer install
+```
+
+Install frontend dependencies:
+
+```bash
+npm install
+```
+
+Create the environment file:
+
+```bash
+cp .env.example .env
+```
+
+Generate the application key:
+
+```bash
+php artisan key:generate
+```
+
+Configure your database credentials in `.env`.
+
+Run migrations:
+
+```bash
+php artisan migrate
+```
+
+Then start the application:
+
+```bash
+php artisan serve
+```
+
+---
+
+# Security Considerations
+
+HR systems handle sensitive employee information, so deployments should pay particular attention to:
+
+* Authentication
+* Role-based authorization
+* Password security
+* Database access control
+* Protection of employee records
+* Input validation
+* Secure environment variables
+* Auditability of administrative actions
+* Dependency maintenance
+
+Production credentials and personal employee data should never be committed to a public repository.
+
+---
+
+# Project Classification
+
+**Category:** Legacy / Production-style Business Application
+
+This repository is more substantial than a tutorial or demo because it contains a broad HR domain model and real business workflows.
+
+If the system was actually deployed for an organization, this classification should be upgraded to:
+
+**Production**
+
+If it was primarily built for practice, study, or customization of an existing HRMS system, classify it as:
+
+**Learning / Experimental**
+
+---
+
+# Current Status
+
+The repository represents an earlier Laravel-based HR management project.
+
+The current public version would benefit from:
+
+* Updated framework dependencies
+* Improved automated tests
+* CI/CD
+* Security review
+* Better architecture documentation
+* Screenshots
+* Deployment documentation
+* Clear ownership/origin documentation
+
+---
+
+# Author
+
+**Mrisho Salum**
+
+Software Engineer focused on backend systems, commerce infrastructure, payment systems, and systems engineering.
+
+GitHub: [@Node-Features](https://github.com/Node-Features)
+
+---
+
+<p align="center">
+  <strong>Centralizing people, processes, and HR operations into one system.</strong>
+</p>
